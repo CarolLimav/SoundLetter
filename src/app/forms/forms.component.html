@@ -1,4 +1,4 @@
-<section class="send-music-section">
+<section class="send-music-section" id="enviar-musica">
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">Envie Sua Música</h2>
@@ -8,43 +8,159 @@
       <div class="title-underline"></div>
     </div>
 
-    <form class="music-form">
+    <form class="music-form" #musicForm="ngForm" (ngSubmit)="onSubmit(musicForm)" *ngIf="!enviadoComSucesso">
       <div class="form-group">
         <label class="form-label">Seu nome</label>
         <p class="form-hint">Como você quer ser identificado</p>
-        <input type="text" class="form-input" placeholder="Digite seu nome">
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Digite seu nome"
+          [(ngModel)]="nomeRemetente"
+          name="nomeRemetente"
+          required
+          minlength="2"
+          [disabled]="carregando"
+          #nomeInput="ngModel"
+        />
+        <div *ngIf="nomeInput.invalid && (nomeInput.dirty || nomeInput.touched)" class="error-text">
+          <div *ngIf="nomeInput.errors?.['required']">Nome é obrigatório</div>
+          <div *ngIf="nomeInput.errors?.['minlength']">Mínimo 2 caracteres</div>
+        </div>
       </div>
+
       <div class="form-group">
         <label class="form-label">Seu email</label>
         <p class="form-hint">Seu endereço de email</p>
-        <input type="email" class="form-input" placeholder="exemplo@email.com">
+        <input
+          type="email"
+          class="form-input"
+          placeholder="exemplo@email.com"
+          [(ngModel)]="emailRemetente"
+          name="emailRemetente"
+          required
+          email
+          [disabled]="carregando"
+          #emailInput="ngModel"
+        />
+        <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="error-text">
+          <div *ngIf="emailInput.errors?.['required']">Email é obrigatório</div>
+          <div *ngIf="emailInput.errors?.['email']">Formato de email inválido</div>
+        </div>
       </div>
 
       <div class="form-group">
         <label class="form-label">Email do destinatário</label>
         <p class="form-hint">Para quem é essa música?</p>
-        <input type="email" class="form-input" placeholder="destinatario@email.com">
+        <input
+          type="email"
+          class="form-input"
+          placeholder="destinatario@email.com"
+          [(ngModel)]="emailDestinatario"
+          name="emailDestinatario"
+          required
+          email
+          [disabled]="carregando"
+          #destinatarioInput="ngModel"
+        />
+        <div *ngIf="destinatarioInput.invalid && (destinatarioInput.dirty || destinatarioInput.touched)" class="error-text">
+          <div *ngIf="destinatarioInput.errors?.['required']">Email é obrigatório</div>
+          <div *ngIf="destinatarioInput.errors?.['email']">Formato de email inválido</div>
+        </div>
       </div>
 
       <div class="form-group">
         <label class="form-label">Mensagem pessoal</label>
-        <p class="form-hint">O que essa música significa para você? Por que escolheu essa música para essa pessoa?</p>
-        <textarea class="form-textarea" rows="4" placeholder="Escreva sua mensagem especial..."></textarea>
+        <p class="form-hint">
+          O que essa música significa para você? Por que escolheu essa música para essa pessoa?
+        </p>
+        <textarea
+          class="form-textarea"
+          rows="4"
+          placeholder="Escreva sua mensagem especial..."
+          [(ngModel)]="mensagemPessoal"
+          name="mensagemPessoal"
+          required
+          minlength="10"
+          [disabled]="carregando"
+          #mensagemInput="ngModel"
+        ></textarea>
+        <div *ngIf="mensagemInput.invalid && (mensagemInput.dirty || mensagemInput.touched)" class="error-text">
+          <div *ngIf="mensagemInput.errors?.['required']">Mensagem é obrigatória</div>
+          <div *ngIf="mensagemInput.errors?.['minlength']">Mínimo 10 caracteres</div>
+        </div>
       </div>
 
       <div class="form-group">
         <label class="form-label">Pesquisar música</label>
         <p class="form-hint">Nome da música ou artista</p>
         <div class="search-container">
-          <input type="text" class="form-input search-input" placeholder="Ex: 'Bohemian Rhapsody - Queen'">
-          <button type="button" class="search-button">Buscar</button>
+          <input
+            type="text"
+            class="form-input search-input"
+            placeholder="Ex: 'Bohemian Rhapsody - Queen'"
+            [(ngModel)]="busca"
+            (input)="buscarSugestoes()"
+            name="busca"
+            [disabled]="carregando"
+          />
+          <button 
+            type="button" 
+            class="search-button" 
+            (click)="buscarSugestoes()"
+            [disabled]="carregando"
+          >
+            Buscar
+          </button>
+        </div>
+
+        <ul *ngIf="sugestoes.length > 0" class="sugestoes-list">
+          <li *ngFor="let s of sugestoes" (click)="selecionarMusica(s)">
+            <span class="music-icon">🎵</span>
+            <div class="music-info">
+              <div class="music-name">{{ s.nome }}</div>
+              <div class="music-artist">{{ s.artista }}</div>
+            </div>
+          </li>
+        </ul>
+
+        <div *ngIf="nomeMusica" class="musica-selecionada">
+          <p><strong>Música selecionada:</strong></p>
+          <p>{{ nomeMusica }} - {{ artista }}</p>
+          <a [href]="linkSpotify" target="_blank">Ouvir no Spotify →</a>
+        </div>
+        <div *ngIf="!nomeMusica && musicForm.submitted" class="error-text">
+          Por favor, selecione uma música
         </div>
       </div>
 
-      <button type="submit" class="submit-button">
-        Enviar Música
-        <span class="button-icon"></span>
+      <div *ngIf="erroEnvio" class="error-message">
+        <i class="fas fa-exclamation-circle"></i>
+        <p>{{ erroEnvio }}</p>
+      </div>
+
+      <div *ngIf="carregando" class="loading-message">
+        <div class="spinner"></div>
+        <p>Enviando sua música...</p>
+      </div>
+
+      <button 
+        type="submit" 
+        class="submit-button" 
+        [disabled]="carregando || musicForm.invalid || !nomeMusica"
+      >
+        <span *ngIf="!carregando">Enviar Música</span>
+        <span *ngIf="carregando">Enviando...</span>
       </button>
     </form>
+
+    <div *ngIf="enviadoComSucesso" class="success-message">
+      <i class="fas fa-check-circle"></i>
+      <h3>Sua música foi enviada com sucesso!</h3>
+      <p>A mensagem musical está a caminho do destinatário.</p>
+      <button (click)="resetarFormulario(); enviadoComSucesso = false" class="new-submission-btn">
+        Enviar outra música
+      </button>
+    </div>
   </div>
 </section>

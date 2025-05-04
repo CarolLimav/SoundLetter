@@ -12,11 +12,11 @@
   
      
         <div class="nav-links">
-          <a routerLink="/como-funciona" class="nav-link" (mouseenter)="playHoverSound()">
+          <a routerLink="/como-funciona" class="nav-link" [routerLink]="'/#how-it-works'" (click)="scrollToFuncionalidade()">
             <span class="link-text">Como funciona</span>
             <span class="link-underline"></span>
           </a>
-          <a routerLink="/enviar-musica" class="nav-link" (mouseenter)="playHoverSound()">
+          <a class="nav-link" [routerLink]="'/#enviar-musica'" (click)="scrollToForms()">
             <span class="link-text">Enviar música</span>
             <span class="link-underline"></span>
           </a>

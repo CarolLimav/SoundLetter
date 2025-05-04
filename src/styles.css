@@ -40,3 +40,19 @@ body{
   :host {
     display: block;
   }
+  section[id] {
+    scroll-margin-top: 80px;
+  }
+  
+  /* Mantenha o highlight para feedback visual */
+  section:target {
+    animation: highlight 1.5s ease;
+  }
+  
+  @keyframes highlight {
+    from { background-color: rgba(148, 0, 211, 0.2); }
+    to { background-color: transparent; }
+  }
+  section[id="enviar-musica"] {
+    scroll-margin-top: 80px;
+  }

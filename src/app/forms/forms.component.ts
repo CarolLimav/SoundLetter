@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { EmailService } from '../email.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-forms',
@@ -9,62 +11,95 @@ import { of } from 'rxjs';
   styleUrls: ['./forms.component.css']
 })
 export class FormsComponent {
-  searchResults: any[] = []; 
-
-  private clientId = ''; 
-  private clientSecret = ''; 
-  private accessToken: string = '';
-
-  constructor(private http: HttpClient) {}
-
+  nomeRemetente: string = '';
+  emailRemetente: string = '';
+  emailDestinatario: string = '';
+  mensagemPessoal: string = '';
+  nomeMusica: string = '';
+  artista: string = '';
+  linkSpotify: string = '';
+  busca: string = '';
+  sugestoes: any[] = [];
   
-  private getAccessToken() {
-    const body = new URLSearchParams();
-    body.set('grant_type', 'client_credentials');
+  enviadoComSucesso: boolean = false;
+  carregando: boolean = false;
+  erroEnvio: string | null = null;
+  campoErros: { [key: string]: string } = {};
 
-    return this.http.post<any>('https://accounts.spotify.com/api/token', body.toString(), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + btoa(this.clientId + ':' + this.clientSecret)
-      }
-    }).pipe(
-      catchError(err => {
-        console.error('Erro ao obter o token:', err);
-        return of(null);
-      })
-    );
-  }
+  constructor(private emailService: EmailService, private http: HttpClient) { }
 
- 
-  searchMusic() {
-    const searchQuery = (document.getElementById('searchQuery') as HTMLInputElement).value;
-
-    if (!searchQuery) {
-      alert("Digite o nome da música ou artista!");
+  onSubmit(form: NgForm) {
+    if (this.carregando || form.invalid) return;
+    
+    if (!this.nomeMusica || !this.artista || !this.linkSpotify) {
+      this.erroEnvio = 'Por favor, selecione uma música da lista de sugestões';
       return;
     }
 
-    this.getAccessToken().subscribe((tokenResponse: { access_token: string } | null) => {
-      if (tokenResponse && tokenResponse.access_token) {
-        this.accessToken = tokenResponse.access_token;
+    this.carregando = true;
+    this.enviadoComSucesso = false;
+    this.erroEnvio = null;
+    this.campoErros = {};
 
-        this.http.get<any>(`https://api.spotify.com/v1/search?q=${encodeURIComponent(searchQuery)}&type=track&limit=5`, {
-          headers: {
-            'Authorization': `Bearer ${this.accessToken}`
-          }
-        }).subscribe((response: any) => {
-          this.searchResults = response.tracks.items; 
-        }, error => {
-          console.error('Erro ao buscar músicas:', error);
-        });
-      } else {
-        alert("Erro ao obter token de acesso!");
+    const musicData = {
+      nomeRemetente: this.nomeRemetente,
+      emailRemetente: this.emailRemetente,
+      emailDestinatario: this.emailDestinatario,
+      mensagemPessoal: this.mensagemPessoal,
+      nomeMusica: this.nomeMusica,
+      artista: this.artista,
+      linkSpotify: this.linkSpotify
+    };
+
+    this.emailService.enviarMusica(musicData).subscribe({
+      next: (response) => {
+        this.enviadoComSucesso = true;
+        this.carregando = false;
+        this.resetarFormulario();
+        form.resetForm();
+      },
+      error: (error) => {
+        this.carregando = false;
+        if (error.error?.errors) {
+          this.campoErros = error.error.errors;
+        } else {
+          this.erroEnvio = error.message || 'Erro ao enviar. Tente novamente.';
+        }
       }
     });
   }
 
-  onSubmit(event: Event) {
-    event.preventDefault(); 
-    console.log("Formulário enviado");
+  buscarSugestoes() {
+    if (this.busca.length < 2) {
+      this.sugestoes = [];
+      return;
+    }
+
+    this.http.get<any[]>(`http://localhost:8080/api/search?query=${this.busca}`)
+      .pipe(catchError(() => of([])))
+      .subscribe({
+        next: (res) => this.sugestoes = res,
+        error: (err) => console.error('Erro na busca:', err)
+      });
+  }
+
+  selecionarMusica(musica: any) {
+    this.nomeMusica = musica.nome;
+    this.artista = musica.artista;
+    this.linkSpotify = musica.link;
+    this.busca = `${musica.nome} - ${musica.artista}`;
+    this.sugestoes = [];
+  }
+
+  resetarFormulario() {
+    this.nomeRemetente = '';
+    this.emailRemetente = '';
+    this.emailDestinatario = '';
+    this.mensagemPessoal = '';
+    this.nomeMusica = '';
+    this.artista = '';
+    this.linkSpotify = '';
+    this.busca = '';
+    this.sugestoes = [];
   }
 }

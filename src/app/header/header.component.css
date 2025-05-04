@@ -81,13 +81,10 @@
   padding: 0.3rem 0;
 }
 
-.nav-link:hover {
-  color: #ba55d3;
-}
 
 .nav-link:hover .link-underline {
   width: 100%;
-  background-color: #ba55d3;
+  background-color:  #9400d3;;
 }
 
 .link-underline {
@@ -115,7 +112,7 @@
 
 @keyframes waveGlow {
   0% { transform: scale(1); }
-  50% { transform: scale(1.1); text-shadow: 0 0 5px #ba55d3; }
+  50% { transform: scale(1.1); text-shadow: 0 0 5px  #9400d3; }
   100% { transform: scale(1); }
 }
 
