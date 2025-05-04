@@ -1,0 +1,134 @@
+
+.sound-letter-header {
+  padding: 1rem 0;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.sound-letter-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 1; 
+}
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease;
+}
+
+.logo-sound {
+  color: #ffffff;
+}
+
+.logo-letter {
+  color: #ba55d3;
+  margin-left: 0.3rem;
+}
+
+
+.music-icon {
+  margin-left: 0.5rem;
+  font-size: 1.6rem;
+  animation: pulse 3s infinite;
+  color: #ba55d3;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.footer-logo {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+  color: #fff;
+}
+
+.footer-logo span {
+  color: #6a0dad;
+}
+
+.nav-link {
+  position: relative;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  padding: 0.3rem 0;
+}
+
+.nav-link:hover {
+  color: #ba55d3;
+}
+
+.nav-link:hover .link-underline {
+  width: 100%;
+  background-color: #ba55d3;
+}
+
+.link-underline {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: transparent;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+
+.nav-link:hover .link-text {
+  display: inline-block;
+  animation: waveGlow 0.4s ease-in-out;
+}
+
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+
+@keyframes waveGlow {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); text-shadow: 0 0 5px #ba55d3; }
+  100% { transform: scale(1); }
+}
+
+
+.particle {
+  position: absolute;
+  background-color: rgba(106, 13, 207, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0); opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+}
