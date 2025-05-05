@@ -15,7 +15,7 @@ interface EnvioMusicaDto {
   providedIn: 'root'
 })
 export class EmailService {
-  private apiUrl = 'http://localhost:8080/api/musica/enviar'; 
+  private apiUrl = 'https://soundletter-81b37df4949f.herokuapp.com/api/musica/enviar'; 
 
   constructor(private http: HttpClient) { }
 

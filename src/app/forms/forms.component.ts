@@ -75,7 +75,7 @@ export class FormsComponent {
       return;
     }
 
-    this.http.get<any[]>(`http://localhost:8080/api/search?query=${this.busca}`)
+    this.http.get<any[]>(`https://soundletter-81b37df4949f.herokuapp.com/api/search?query=${this.busca}`)
       .pipe(catchError(() => of([])))
       .subscribe({
         next: (res) => this.sugestoes = res,
