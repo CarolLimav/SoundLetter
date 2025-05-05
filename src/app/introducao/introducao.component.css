@@ -371,6 +371,9 @@
     .hero-content {
         flex: unset;
     }
+    .visualizer-container {
+        display:none; 
+    }
 }
 
 .hero-highlight {
