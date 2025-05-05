@@ -7,12 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  isMenuOpen: boolean = false; 
   constructor(private router: Router) {}
 
   scrollToForms() {
     const element = document.getElementById('enviar-musica');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      this.isMenuOpen = false; 
     }
   }
 
@@ -20,6 +22,11 @@ export class HeaderComponent {
     const element = document.getElementById('how-it-works');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      this.isMenuOpen = false; 
     }
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }

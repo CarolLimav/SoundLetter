@@ -1,5 +1,6 @@
 
 .sound-letter-header {
+  position: relative;
   padding: 1rem 0;
   width: 100%;
   top: 0;
@@ -128,4 +129,49 @@
   0% { transform: translate(0, 0); opacity: 0; }
   50% { opacity: 0.5; }
   100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+}
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: -14px;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
 }
