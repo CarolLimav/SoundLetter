@@ -2,7 +2,7 @@
 
 **Sound Letter** é uma aplicação web desenvolvida em Angular que permite aos usuários enviarem mensagens personalizadas acompanhadas de uma música para um endereço de email. A proposta é transformar palavras em experiências sonoras, criando conexões mais emocionantes entre remetente e destinatário.
 
-🔗 Acesse o site: [https://soundletter.netlify.app](https://soundletter.netlify.app)
+###🔗 Acesse o site: [https://soundletter.netlify.app](https://soundletter.netlify.app)
 
 ---
 
@@ -31,6 +31,9 @@
 ### 2. Instale as dependências com o comando ng serve
 ### 3. Acesse no navegador: http://localhost:4200 
 
-#Telas
+###Telas
 
-
+![Tela](src/assets/1.png)
+![Tela](src/assets/2.png)
+![Tela](src/assets/3.png)
+![Tela](src/assets/4.png)
