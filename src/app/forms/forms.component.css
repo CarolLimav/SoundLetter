@@ -165,7 +165,7 @@
   animation: bounce 0.5s;
 }
 
-/* Botão "Tentar novamente" ajustado */
+
 .try-again-btn {
   width: auto;
   display: inline-flex;
@@ -335,7 +335,7 @@
   
   .form-input,
   .form-textarea {
-      width: 100%;
+      width: 90%;
       min-width: unset;
       max-width: 100%;
   }
