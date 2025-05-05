@@ -364,6 +364,13 @@
     .music-card {
         max-width: 100%;
     }
+     .title-part {
+        display: unset;
+    }
+
+    .hero-content {
+        flex: unset;
+    }
 }
 
 .hero-highlight {
