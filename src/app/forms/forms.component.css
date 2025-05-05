@@ -77,7 +77,8 @@
 }
 
 .form-input {
-  width: 673px;
+  width: 100%;
+  max-width: 673px;
   padding: 1rem;
   background: rgba(50, 50, 50, 0.5);
   border: 1px solid rgba(148, 0, 211, 0.3);
@@ -100,6 +101,7 @@
 .form-textarea {
   resize: vertical;
   min-height: 100px;
+  width: 100%;
   min-width: 700px;
 }
 
@@ -335,6 +337,7 @@
   .form-textarea {
       width: 100%;
       min-width: unset;
+      max-width: 100%;
   }
   
   .try-again-btn {
@@ -365,11 +368,4 @@
 .error-message {
   margin-top: 20px;
   animation: fadeIn 0.3s ease;
-}
-
-@media (max-width: 768px) {
-  .form-input {
-    width: 100%;
-    max-width: 310px;
-  }
 }
