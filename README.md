@@ -1,27 +1,36 @@
-# Soundletter
+# Sound Letter 🎵✉
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
+**Sound Letter** é uma aplicação web desenvolvida em Angular que permite aos usuários enviarem mensagens personalizadas acompanhadas de uma música para um endereço de email. A proposta é transformar palavras em experiências sonoras, criando conexões mais emocionantes entre remetente e destinatário.
 
-## Development server
+🔗 Acesse o site: [https://soundletter.netlify.app](https://soundletter.netlify.app)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## ✨ Funcionalidades
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Campo para digitar uma mensagem personalizada.
+- Campo para inserir o email do destinatário.
+- Seleção ou envio de uma música.
+- Envio de email com a mensagem e a música anexadas.
+- Interface leve e intuitiva.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🛠️ Tecnologias Utilizadas
 
-## Running unit tests
+- [Angular](https://angular.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [HTML5](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
+- [CSS3](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## 📦 Instalação e Execução Local
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 1. Clone o repositório
+### 2. Instale as dependências com o comando ng serve
+### 3. Acesse no navegador: http://localhost:4200 
 
-## Further help
+#Telas
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
