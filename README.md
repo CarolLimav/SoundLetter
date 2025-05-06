@@ -31,7 +31,7 @@
 ### 2. Instale as dependências com o comando ng serve
 ### 3. Acesse no navegador: http://localhost:4200 
 
-###Telas
+# Telas
 
 ![Tela](src/assets/1.png)
 ![Tela](src/assets/2.png)
