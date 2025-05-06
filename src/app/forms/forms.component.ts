@@ -29,7 +29,15 @@ export class FormsComponent {
   constructor(private emailService: EmailService, private http: HttpClient) { }
 
   onSubmit(form: NgForm) {
-    if (this.carregando || form.invalid) return;
+    Object.keys(form.controls).forEach(field => {
+      const control = form.controls[field];
+      control.markAsTouched({ onlySelf: true });
+    });
+
+    if (form.invalid) {
+      this.erroEnvio = 'Por favor, preencha todos os campos obrigatórios corretamente';
+      return;
+    }
     
     if (!this.nomeMusica || !this.artista || !this.linkSpotify) {
       this.erroEnvio = 'Por favor, selecione uma música da lista de sugestões';

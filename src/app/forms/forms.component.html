@@ -139,6 +139,9 @@
         <p>{{ erroEnvio }}</p>
       </div>
 
+      <div *ngIf="musicForm.submitted && musicForm.invalid" class="error-text">
+      </div>
+
       <div *ngIf="carregando" class="loading-message">
         <div class="spinner"></div>
         <p>Enviando sua música...</p>
@@ -147,7 +150,7 @@
       <button 
         type="submit" 
         class="submit-button" 
-        [disabled]="carregando || musicForm.invalid || !nomeMusica"
+        [disabled]="carregando"
       >
         <span *ngIf="!carregando">Enviar Música</span>
         <span *ngIf="carregando">Enviando...</span>
